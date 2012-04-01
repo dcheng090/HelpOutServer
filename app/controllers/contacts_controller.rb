@@ -1,9 +1,10 @@
 class ContactsController < ApplicationController
   def create
-    numbers = params[:numbers].split(',') 
-    for number in numbers do
+    nums = params[:nums] 
+    for number in nums do
       @contact = Location.new(:number =>  number)  
       @contact.save
     end
+    puts "hello"
   end
 end

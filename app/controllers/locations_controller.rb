@@ -25,7 +25,6 @@ class LocationsController < ApplicationController
   # GET /locations/new.xml
   def new
     @location = Location.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @location }
@@ -37,13 +36,22 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
   end
 
+  def setDistance(location)
+    if location.lon and location.lat
+      mainlocation = Location.find_by_number("5107097228")
+      location.dist= Math.sqrt((location.lon-mainlocation.lon).abs**2 + (location.lat-mainlocation.lat).abs**2)
+      location.save
+    end
+  end
+  
   # POST /locations
   # POST /locations.xml
   def create
     @location = Location.new(params[:location])
-
+   
     respond_to do |format|
       if @location.save
+        setDistance(@location)
         format.html { redirect_to(@location, :notice => 'Location was successfully created.') }
         format.xml  { render :xml => @location, :status => :created, :location => @location }
       else
@@ -60,6 +68,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       if @location.update_attributes(params[:location])
+        setDistance(@location)
         format.html { redirect_to(@location, :notice => 'Location was successfully updated.') }
         format.xml  { head :ok }
       else

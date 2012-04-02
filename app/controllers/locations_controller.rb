@@ -37,12 +37,11 @@ class LocationsController < ApplicationController
   end
 
   def setDistance(loc)
-    if Location.first==Location.last
-      loc.dist=0
-      loc.save
+    if User.first==nil
       return
     end
-    if User.first!=nil and loc.number==User.first.number
+
+    if loc.number==User.first.number
       locations=Location.all
     else
       locations=[loc]
@@ -50,7 +49,7 @@ class LocationsController < ApplicationController
     
     locations.each do |location| 
       if location.lon and location.lat
-        mainlocation = Location.find_by_number("5107097228")
+        mainlocation = Location.find_by_number(User.first.number)
         location.dist= Math.sqrt((location.lon-mainlocation.lon).abs**2 + (location.lat-mainlocation.lat).abs**2)
         location.save
       end
@@ -80,8 +79,9 @@ class LocationsController < ApplicationController
     user = User.find_by_username(params[:username])
     if user  
       @location = Location.find_by_number(user.number)
-    else
-      @location = Location.new
+      if @location==nil
+        @location = Location.new
+      end
     end
     if @location
       @location.lon=params[:lon]

@@ -2,9 +2,11 @@ Helpout::Application.routes.draw do
   resources :locations
   
   resources :users
-  
-  root :to => 'users#new'
+  '
   match '/signup', :to => 'users#new'
+   
+  :root, :to => '/signup'
+    
   match 'locations/updateFromPhone', :to => 'locations#updateFromPhone'
 
   # The priority is based upon order of creation:

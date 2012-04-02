@@ -37,6 +37,12 @@ class LocationsController < ApplicationController
   end
 
   def setDistance(loc)
+    if User.first
+    else
+      loc.dist=0
+      loc.save
+      return
+    end
     if loc.number==User.first.number
       locations=Location.all
     else

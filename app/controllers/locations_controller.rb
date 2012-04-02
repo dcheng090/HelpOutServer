@@ -81,6 +81,7 @@ class LocationsController < ApplicationController
       @location = Location.find_by_number(user.number)
       if @location==nil
         @location = Location.new
+        @location.number = user.number
       end
     end
     if @location

@@ -1,0 +1,27 @@
+<html>
+<head>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
+  <title>Helpout</title>
+  
+  <script>
+  function massAdd(numsList){
+    var splitNums  = numsList.split(',');
+    $.post('/contacts/create', { 'nums[]' : splitNums }, function(data) {
+      document.write("added"); 
+    });
+  }
+ 
+  </script>
+</head>
+  <div class="field">
+    <label for="username">Username:</label><br />
+    <input id="username" name="username" size="30" type="text" />
+  </div>
+  <div class="field">
+    <label for="nums">Comma Seperated Nums: </label><br />
+    <input id="nums" name="nums" size="100" type="text" />
+  </div>
+  <div class="submit">
+  <input id="massAdd" type="button" onclick='massAdd($("#nums").val());' value="Add Contacts">
+  </div>
+</html>

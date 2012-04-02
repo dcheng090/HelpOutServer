@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+  
+  def validUsernamePassword?
+    user = User.find_by_username(params[:username])
+    if user and user.has_password?(params[:password])
+     render :text => "OK"
+    else
+     render :nothing => true
+    end 
+  end 
+
   def new
     @user = User.new
   end

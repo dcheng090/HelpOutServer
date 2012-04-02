@@ -2,6 +2,8 @@ Helpout::Application.routes.draw do
   resources :locations
   
   resources :users
+   
+  match '/validUsernamePassword', :to => 'users#validUsernamePassword?' 
   
   match '/signup', :to => 'users#new'
    

@@ -81,6 +81,7 @@ class LocationsController < ApplicationController
       @location.lat=params[:lat]
       @location.save
       setDistance(@location)
+      render :text => "OK"
     end
   end 
 

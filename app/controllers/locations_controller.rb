@@ -60,6 +60,18 @@ class LocationsController < ApplicationController
       end
     end
   end
+   
+  # endpoint to update from phone
+  # post paramaters include :number, :lon, :lat
+  def updateFromPhone
+    @location = Location.find_by_number(params[:number])
+    if @location
+      @location.lon=params[:lon]
+      @location.lat=params[:lat]
+      @location.save
+      setDistance(@location)
+    end
+  end 
 
   # PUT /locations/1
   # PUT /locations/1.xml

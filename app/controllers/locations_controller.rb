@@ -80,6 +80,8 @@ class LocationsController < ApplicationController
     user = User.find_by_username(params[:username])
     if user  
       @location = Location.find_by_number(user.number)
+    else
+      @location = Location.new
     end
     if @location
       @location.lon=params[:lon]

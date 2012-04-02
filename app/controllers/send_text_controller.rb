@@ -29,6 +29,22 @@ class SendTextController < ApplicationController
   
   end 
 
+  def send_message_to(whom)
+    location=Location.find("5")
+    number_to_send_to = whom
+    twilio_sid = "AC9c5e8f23415c4b8e8f28ced554c29e9d"
+    twilio_token = "73b5199b0a176444dc7f26bdafa4d559"
+    twilio_phone_number = "4155992671"
+
+    @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
+
+    @twilio_client.account.sms.messages.create(
+      :from => "+1#{twilio_phone_number}",
+      :to => number_to_send_to,
+      :body => "Hi #{number_to_send_to}, your friend is at http://maps.google.com?q=#{location.lat},#{location.lon} !"
+    )
+  end
+
   def send_text_message
     send_message_to(params[:number_to_send_to])
   end

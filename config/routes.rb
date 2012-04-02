@@ -5,7 +5,7 @@ Helpout::Application.routes.draw do
   '
   match '/signup', :to => 'users#new'
    
-  :root, :to => '/signup'
+  root :to => '/signup'
     
   match 'locations/updateFromPhone', :to => 'locations#updateFromPhone'
 

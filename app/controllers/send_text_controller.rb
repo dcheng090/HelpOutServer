@@ -28,7 +28,7 @@ class SendTextController < ApplicationController
   end
    
   def get_closest_numbers(distressedNum)
-    locations = Location.where("dist IS NOT NULL AND number != ?",distressedNum).order("dist ASC").limit(1)
+    locations = Location.where("dist IS NOT NULL AND number != ?",distressedNum).order("dist ASC").limit(2)
     locations.each do |location|
       send_message_to(location.number)
     end

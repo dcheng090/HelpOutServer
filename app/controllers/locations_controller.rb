@@ -36,11 +36,19 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
   end
 
-  def setDistance(location)
-    if location.lon and location.lat
-      mainlocation = Location.find_by_number("5107097228")
-      location.dist= Math.sqrt((location.lon-mainlocation.lon).abs**2 + (location.lat-mainlocation.lat).abs**2)
-      location.save
+  def setDistance(loc)
+    if loc.number==User.first.number
+      locations=Location.all
+    else
+      locations=[loc]
+    end
+    
+    locations.each do |location| 
+      if location.lon and location.lat
+        mainlocation = Location.find_by_number("5107097228")
+        location.dist= Math.sqrt((location.lon-mainlocation.lon).abs**2 + (location.lat-mainlocation.lat).abs**2)
+        location.save
+      end
     end
   end
   
@@ -62,9 +70,12 @@ class LocationsController < ApplicationController
   end
    
   # endpoint to update from phone
-  # post paramaters include :number, :lon, :lat
+  # post paramaters include :username, :lon, :lat
   def updateFromPhone
-    @location = Location.find_by_number(params[:number])
+    user = User.find_by_username(params[:username])
+    if user  
+      @location = Location.find_by_number(user.number)
+    end
     if @location
       @location.lon=params[:lon]
       @location.lat=params[:lat]

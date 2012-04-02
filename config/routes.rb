@@ -2,7 +2,8 @@ Helpout::Application.routes.draw do
   resources :locations
   
   resources :users
-   
+  
+  match '/mass_send_text', :to => 'send_text#mass_send_text_message' 
   match '/validUsernamePassword', :to => 'users#validUsernamePassword?' 
   
   match '/signup', :to => 'users#new'

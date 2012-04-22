@@ -48,7 +48,7 @@ class AudiosController < ApplicationController
   
   
   def upload(data)
-    File.open(Rails.root.join('public', 'uploads', 'sound.mp3'), 'w') do |file|
+    File.open(Rails.root.join('public', 'uploads', 'sound-blah.mp3'), 'w') do |file|
       file.write(data)
     end
   end

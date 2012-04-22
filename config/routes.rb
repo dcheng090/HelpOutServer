@@ -1,4 +1,9 @@
 Helpout::Application.routes.draw do
+  
+  match '/audios/create_from_phone', :to => 'audios#create_from_phone'
+  
+  resources :audios
+
   resources :locations
   
   resources :users

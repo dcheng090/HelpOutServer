@@ -40,18 +40,20 @@ class AudiosController < ApplicationController
   
   #POST /audios/create_from_phone
   def create_from_phone
-    @audio = Audio.new(params[:audio])
+    @audio = Audio.new({:data => params[:data], :username => params[:username]})
     if @audio.save
       upload(@audio.data)
     end
   end
   
+  
   def upload(data)
-    File.open(Rails.root.join('public', 'uploads', 'sound.mp3', 'w') do |file|
+    File.open(Rails.root.join('public', 'uploads', 'sound.mp3'), 'w') do |file|
       file.write(data)
     end
   end
 
+   
   # POST /audios
   # POST /audios.xml
   def create

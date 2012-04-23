@@ -48,7 +48,7 @@ class AudiosController < ApplicationController
   
   
   def upload(data)
-    File.open('../public/uploads/sound-blah.mp3'), 'w') do |file|
+    File.open('../public/uploads/sound-blah.mp3', 'w') do |file|
       file.write(data)
     end
   end

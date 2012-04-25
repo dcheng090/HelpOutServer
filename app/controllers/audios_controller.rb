@@ -40,6 +40,7 @@ class AudiosController < ApplicationController
   
   #POST /audios/create_from_phone
   def create_from_phone
+    @audio = Audio.new({:data => params[:data], :username => params[:username]})
     if @audio.save
       upload(@audio.data)
     end
@@ -53,7 +54,7 @@ class AudiosController < ApplicationController
       file.write(uploaded_io.read.to_s.force_encoding("UTF-8"))
     end
   end
-   
+  
   # POST /audios
   # POST /audios.xml
   def create
@@ -66,6 +67,10 @@ class AudiosController < ApplicationController
         format.xml  { render :xml => @audio, :status => :created, :location => @audio }
       else
         format.html { render :action => "" }
+        format.html { redirect_to(@audio, :notice => 'Audio was successfully created.') }
+        format.xml  { render :xml => @audio, :status => :created, :location => @audio }
+      else
+        format.html { render :action => "new" }
         format.xml  { render :xml => @audio.errors, :status => :unprocessable_entity }
       end
     end

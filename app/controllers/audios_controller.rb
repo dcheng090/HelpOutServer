@@ -66,10 +66,6 @@ class AudiosController < ApplicationController
         format.html { redirect_to(@audio, :notice => 'Audio was successfully created.') }
         format.xml  { render :xml => @audio, :status => :created, :location => @audio }
       else
-        format.html { render :action => "" }
-        format.html { redirect_to(@audio, :notice => 'Audio was successfully created.') }
-        format.xml  { render :xml => @audio, :status => :created, :location => @audio }
-      else
         format.html { render :action => "new" }
         format.xml  { render :xml => @audio.errors, :status => :unprocessable_entity }
       end

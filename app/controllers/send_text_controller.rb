@@ -57,7 +57,6 @@ class SendTextController < ApplicationController
       :from => "+1#{twilio_phone_number}",
       :to => number_to_send_to,
       :body => "Hi #{number_to_send_to}, your friend #{distressed.name} is at http://maps.google.com?q=#{location.lat},#{location.lon} #{audio_file} !"
-      :body => "Hi #{number_to_send_to}, your friend #{distressed.name} is at http://maps.google.com?q=#{location.lat},#{location.lon} !"
     )
   end
 

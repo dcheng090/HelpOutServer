@@ -21,17 +21,15 @@ class SendTextController < ApplicationController
   end 
    
   def mass_send_text_message
-    closeNumbers = get_closest_numbers(User.first.number)
-    for num in closeNumbers
-      send_message_to(num)
+    closeLocations = get_closest_locations(User.first.number)
+    for loc in closeLocations
+      send_message_to(loc.number)
     end
   end
    
-  def get_closest_numbers(distressedNum)
+  def get_closest_locations(distressedNum)
     locations = Location.where("dist IS NOT NULL AND number != ?",distressedNum).order("dist ASC").limit(2)
-    locations.each do |location|
-      send_message_to(location.number)
-    end
+    return locations
   end 
 
   def get_audio_file
@@ -52,12 +50,18 @@ class SendTextController < ApplicationController
     twilio_phone_number = "4155992671"
 
     @twilio_client = Twilio::REST::Client.new twilio_sid, twilio_token
-
     @twilio_client.account.sms.messages.create(
       :from => "+1#{twilio_phone_number}",
       :to => number_to_send_to,
-      :body => "Hi #{number_to_send_to}, your friend #{distressed.name} is at http://maps.google.com?q=#{location.lat},#{location.lon} #{audio_file} !!!"
+      :body => "Hi #{number_to_send_to}, your friend #{distressed.name} is at http://maps.google.com?q=#{location.lat},#{location.lon} !!!"
     )
+    if audio_file
+      @twilio_client.account.sms.messages.create(
+        :from => "+1#{twilio_phone_number}",
+        :to => number_to_send_to,
+        :body => "with voice message: #{audio_file}"
+      )
+    end
   end
 
   def send_text_message

@@ -1,0 +1,14 @@
+<html>
+  <head>
+   <script type="text/javascript" src="audio-player/audio-player.js"></script> 
+  </head>
+  <audio id="audioplayer" preload controls loop style="width:424px;">
+    <source src="http://jennifergoett.com/helpout_tests/uploads/dbob.caf">
+</audio>
+<script type="text/javascript">
+    var audioTag = document.createElement('audio');
+    if (!(!!(audioTag.canPlayType) && ("no" != audioTag.canPlayType("audio/mpeg")) && ("" != audioTag.canPlayType("audio/mpeg")))) {
+        AudioPlayer.embed("audioplayer", {soundFile: "http://jennifergoett.com/helpout_tests/uploads/dbob.caf"});
+    }
+</script>
+</html>
